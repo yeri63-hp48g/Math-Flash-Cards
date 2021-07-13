@@ -1,0 +1,183 @@
+'Math'
+<<
+  @ Define custom menu to offer way to exit or start different drill.
+  {{ "Menu" }{ }{ }{ }{ }{ "Quit" }} TMENU
+ 
+  CLLCD
+  @ If the stack is empty, display the title screen, otherwise go
+  @ to the choose menu. This is used by the Menu button later.
+  IF DEPTH 0 == THEN "      Math" 3 DISP .5 WAIT
+                     "         FLASH" 4 DISP .5 WAIT
+                     "            Cards" 5 DISP 1 WAIT
+  END
+
+  @ Select which match drill to start.
+  { Addition Subtract Multiply Division }
+  DUP
+  "Select one..." 
+  SWAP
+  1 CHOOSE
+
+  @ If Quit option was selected in Choose menu, exit.
+  IF 0 == THEN 
+    CLEAR 
+    0 MENU 
+    KILL
+  END
+
+  @ Locate position of choosen string in list.
+  @ Initialize variables...
+  @ m = menu (1=Add, 2=Sub, 3=Mult, 4=Div)
+  @ k = keypress code
+
+  POS 0 -> m k
+  <<
+    CLLCD 3 FREEZE
+    "    Press any key" 4 DISP
+    "      to start." 5 DISP 
+    -1 WAIT 'k' STO
+
+    @ Process button from custom menu, if pressed.
+    CASE k 11.1 == THEN @ Menu button was pressed.
+                     1 Math 
+                   END
+
+         k 16.1 == THEN @ Quit button was pressed.
+                     CLEAR 
+                     2.01 MENU 
+                     KILL 
+                   END
+    END
+
+    CLLCD 
+    1 12 for i { 1 2 3 4 5 6 7 8 9 10 11 12 }
+      -> x
+      @ x = list of terms to be randomized.
+      <<
+        @ ------------------------------------------------------
+        @ Fisher-Yates Shuffle routine.
+
+        @ Update seed of pseudo random generator from CLK.
+        0 RDZ
+
+        @ For every list member, starting with the last element,
+        @ pick a random position from 1 to, but not equal to the
+        @ current element, and swap values. Repeat for each list
+        @ index, down to 1.
+
+        @ for i = (n - 1) to 1, where n = size of list.
+        x SIZE 1 - 1 FOR i 
+          i 1 +
+          i RAND * 1 + FLOOR -> j k
+          << 
+            @ Swap the list elements at index j and k. 
+            x j GET         @ Get value from index j in list.
+            x k GET         @ Get value from index k in list.
+            x j ROT PUT     @ Put value from index k to index j.
+            k ROT PUT       @ Put value from index j to index k.
+            'x' STO         @ Update list in memory.
+          >>
+        -1 STEP
+        @ ------------------------------------------------------
+
+        1 12 FOR j
+          @ Get random number from list i, position j. 
+          i x j GET
+
+          @ If Addition or Multiplication, swap term order.
+          IF j 2 MOD m 1 == m 3 == OR AND
+          THEN 
+            SWAP
+          END 
+
+          @ Initalize variables.
+          @ a + b = (a + b) for addition.
+          @ (a + b) - a = b for subtraction.
+          @ a * b = (a * b) for multiplication.
+          @ (a * b) / a = b for division.
+          @ eq = string equation
+          @ ans = equation answer
+          @ t = 0.1 sec timer
+          0 0 0 -> a b eq ans t
+          <<
+            @ Reset number format to standard.
+            STD
+
+            CASE 
+              m 1 == THEN 
+                       @ Create the addition equation.
+                       a " + " + b + 'eq' STO
+                       @ Store the answer.
+                       a b + 'ans' STO
+                     END
+
+              m 2 == THEN
+                       @ Create the subtraction equation.
+                       a b + " - " + a + 'eq' STO 
+                       @ Store the answer.
+                       b 'ans' STO                
+                     END
+
+              m 3 == THEN
+                       @ Create the multiplication equation.
+                       a " x " + b + 'eq' STO
+                       @ Store the answer.
+                       a b * 'ans' STO
+                     END
+
+              m 4 == THEN
+                       @ Create the division equation.
+                       a b * " / " + a + 'eq' STO
+                       @ Store the answer.
+                       b 'ans' STO
+                     END
+            END
+ 
+            @ Display the equation to solve.
+            CLLCD
+            "      " eq + " = ?" + 4 DISP
+
+            DO
+              @ Update the time counter.
+              .1 't' STO+ 
+              .1 WAIT
+
+              @ Exit loop once a key is pressed.
+            UNTIL KEY END CLEAR
+
+            @ Wait for 1/2 sec to display the answer.
+            .5 WAIT
+            "      " eq + " = " ans + 4 DISP
+
+            @ Display feedback based on time to answer.
+            CASE
+              t 1 <= THEN "       Amazing!" END
+              t 2 <= THEN "     Pretty good." END
+              t 4 <= THEN "         Good." END
+                          "          Ok." 
+            END
+            7 DISP
+
+            @ Wait for a keypress, and save it.
+            -1 WAIT 'k' STO
+
+            @ Process button from custom menu, if pressed.
+            CASE
+              k 11.1 == THEN @ Menu button was pressed.
+                          1 Math
+                        END
+
+              k 16.1 == THEN @ Quit button was pressed.
+                          @ Clear stack and custom menu, and exit.
+                          CLEAR
+                          2.01 MENU
+                          KILL
+                        END
+            END
+          >>
+        NEXT
+      >>
+    NEXT
+  >>
+  CLEAR 0 MENU
+>>
