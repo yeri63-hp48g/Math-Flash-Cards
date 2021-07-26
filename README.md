@@ -13,12 +13,10 @@ This program simulates the index card approach for learning addition, subtractio
 | Multiply | a x b = c<br />b x a = c |
 | Division | c / a = b                |
 
-The random order of terms are only implemented in addition and multiplication equations. Subtraction and division equations are always presented with the larger term 1st, to avoid generating negative or fractional answers, and unnecessary confusion.
-
 This method of learning works on the honor system, since you could just as well press a button immediately after seeing the equation to reveal the answer. The same is true with the index card approach, by just turning the card over and reading the answer. The program works by asking the student to silently read the equation, and then saying the answer out loud, before pressing the button to validate<sup>4</sup>. Feedback is only provided as an incentive to encourage faster recall, once the basic tables have been learned.
 
 Notes:
 1. The feedback comments range from "Amazing!", "Pretty good.", and "Good.", for answers made within 1, 2, and 4 seconds. Anything longer will provoke the "Ok." responce.
 2. This program uses the Fischer-Yates shuffle routine to generate the random numbers used to generate the equations. That routine guarantees that no number is repeated, or skipped, which in the end, essentially performs a random sort on the order of equations presented.
-3. The order of terms are altered in the following manner, ie. 1 + 5, 8 + 1, 1 + 3, etc., before moving onto the next table. Because only one of the terms is randomly generated, the equations will also change the next time the program is run, ie. 1 + 3, 12 + 1, 1 + 8, etc. This only applies to addition and multiplication.
+3. The random order of terms are only implemented in addition and multiplication equations. Subtraction and division equations are always presented with the larger term 1st, to avoid generating negative or fractional answers, and unnecessary confusion.
 4. Validation is performed by the student, not the calculator, as it does not have a microphone or speech recognition capabilities. Typing in the answers was considered, but abandoned to focus on developing recall speed instead, the primary goal of this program.
