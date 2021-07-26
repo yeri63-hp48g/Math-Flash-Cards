@@ -15,7 +15,7 @@ This program simulates the index card approach for learning addition, subtractio
 
 The random order of terms works well for addition and multiplication, but not so much with subtraction and division. The later two will always need to present the equations with the larger term 1st, to avoid creating equations with negative or fractional results, adding even more confusion.
 
-This method of learning works on the honor system, since you could just as well press a button immediately after seeing the equation to reveal the answer. The same is true with the index card approach, by just turning the card over and reading the answer. The program works by asking the student to silently read the equation, and then say the answer out loud before pressing the button to validate<sup>4</sup>. Feedback is only provided as an incentive to encourage faster recall, once the basic tables have been learned.
+This method of learning works on the honor system, since you could just as well press a button immediately after seeing the equation to reveal the answer. The same is true with the index card approach, by just turning the card over and reading the answer. The program works by asking the student to silently read the equation, and then saying the answer out loud, before pressing the button to validate<sup>4</sup>. Feedback is only provided as an incentive to encourage faster recall, once the basic tables have been learned.
 
 Notes:
 1. The feedback comments range from "Amazing!", "Pretty good.", and "Good.", for answers made within 1, 2, and 4 seconds. Anything longer will provoke the "Ok." responce.
