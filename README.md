@@ -1,6 +1,6 @@
-# Math-Flash-Cards
+# Math Flash Cards
 
-![Screenshot of Risk-Battle-Simulator](https://github.com/yeri63-hp48g/Math-Flash-Cards/raw/main/Math.png)
+![Screenshot of Math Flash Cards](https://github.com/yeri63-hp48g/Math-Flash-Cards/raw/main/Math.png)
 
 Back in the hayday of my youth, I spent the first month of my summer vacation from school learning multiplication tables. At the time I couldn't recall them to quickly, so I was required to spend an hour every day to committing them to memory before going outside to play. This involved memorizing the tables using 3 x 5" index cards, with the equation written on one side, and the answer on the other. I would randomly sort the cards, and attempt to answer from memory, and checking the other side after each attempt. This eventually worked, after many hours of practice.
 
